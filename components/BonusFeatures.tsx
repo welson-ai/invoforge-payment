@@ -180,7 +180,7 @@ export function TransactionConfirmation({
 // 6. Address Book (15 points)
 // ============================================
 export function AddressBook() {
-  const [addresses, setAddresses] = useState<Array<{ name: string; address: string }>>([]);
+  const [addresses] = useState<Array<{ name: string; address: string }>>([]);
   const [showAdd, setShowAdd] = useState(false);
 
   return (

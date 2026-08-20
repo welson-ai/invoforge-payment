@@ -16,6 +16,7 @@ export class StellarHelper {
   private networkPassphrase: string;
   private kit: StellarWalletsKit;
   private network: WalletNetwork;
+  // @ts-expect-error - Unused variable as per file warning
   private publicKey: string | null = null;
 
   constructor(network: 'testnet' | 'mainnet' = 'testnet') {

@@ -6,7 +6,11 @@ export const metadata: Metadata = {
   description: 'Modern payment dashboard for Stellar blockchain. Connect your wallet, send XLM payments, and track transactions in real-time.',
   keywords: ['Stellar', 'XLM', 'blockchain', 'payment', 'wallet', 'crypto', 'testnet'],
   authors: [{ name: 'Invoforge' }],
-  viewport: 'width=device-width, initial-scale=1',
+};
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
   themeColor: '#0f0f1a',
 };
 
