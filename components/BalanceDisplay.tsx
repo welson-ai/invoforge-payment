@@ -14,7 +14,7 @@
 
 import { useState, useEffect } from 'react';
 import { stellar } from '@/lib/stellar-helper';
-import { FaSync, FaCoins } from 'react-icons/fa';
+import { FaSync, FaCoins, FaExclamationTriangle } from 'react-icons/fa';
 import { Card } from './example-components';
 
 interface BalanceDisplayProps {
@@ -26,16 +26,18 @@ export default function BalanceDisplay({ publicKey }: BalanceDisplayProps) {
   const [assets, setAssets] = useState<Array<{ code: string; issuer: string; balance: string }>>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchBalance = async () => {
     try {
       setRefreshing(true);
+      setError(null);
       const balanceData = await stellar.getBalance(publicKey);
       setBalance(balanceData.xlm);
       setAssets(balanceData.assets);
     } catch (error) {
       console.error('Error fetching balance:', error);
-      alert('Failed to fetch balance. Please try again.');
+      setError('Failed to fetch balance. Please try again.');
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -63,6 +65,23 @@ export default function BalanceDisplay({ publicKey }: BalanceDisplayProps) {
         <div className="animate-pulse">
           <div className="h-16 bg-white/5 rounded-lg mb-4"></div>
           <div className="h-10 bg-white/5 rounded-lg w-1/2"></div>
+        </div>
+      </Card>
+    );
+  }
+
+  if (error) {
+    return (
+      <Card title="Your Balance">
+        <div className="flex flex-col items-center justify-center py-8">
+          <FaExclamationTriangle className="text-red-400 text-4xl mb-4" />
+          <p className="text-red-400 text-center mb-4">{error}</p>
+          <button
+            onClick={fetchBalance}
+            className="bg-invoforge-primary hover:bg-invoforge-secondary text-white px-4 py-2 rounded-lg transition-colors"
+          >
+            Retry
+          </button>
         </div>
       </Card>
     );
