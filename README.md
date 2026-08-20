@@ -1,4 +1,9 @@
-# Invoforge
+# Invoforge Payment Dashboard
+
+![Invoforge](https://img.shields.io/badge/Invoforge-Payment%20Dashboard-blue)
+![Stellar](https://img.shields.io/badge/Stellar-Testnet-green)
+![Next.js](https://img.shields.io/badge/Next.js-14.2.0-black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.4.5-blue)
 
 ## Submission Requirements - Belt 2 and Belt 3
 #### demo video
