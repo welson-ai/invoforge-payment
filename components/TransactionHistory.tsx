@@ -16,7 +16,7 @@
 
 import { useState, useEffect } from 'react';
 import { stellar } from '@/lib/stellar-helper';
-import { FaHistory, FaSync, FaArrowUp, FaArrowDown, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaHistory, FaSync, FaArrowUp, FaArrowDown, FaExternalLinkAlt, FaExclamationTriangle } from 'react-icons/fa';
 import { Card, EmptyState } from './example-components';
 
 interface Transaction {
@@ -38,15 +38,18 @@ export default function TransactionHistory({ publicKey }: TransactionHistoryProp
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [limit] = useState(10);
 
   const fetchTransactions = async () => {
     try {
       setRefreshing(true);
+      setError(null);
       const txs = await stellar.getRecentTransactions(publicKey, limit);
       setTransactions(txs);
     } catch (error) {
       console.error('Error fetching transactions:', error);
+      setError('Failed to fetch transactions. Please try again.');
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -98,6 +101,23 @@ export default function TransactionHistory({ publicKey }: TransactionHistoryProp
               <div className="h-20 bg-white/5 rounded-lg"></div>
             </div>
           ))}
+        </div>
+      </Card>
+    );
+  }
+
+  if (error) {
+    return (
+      <Card title="Transaction History">
+        <div className="flex flex-col items-center justify-center py-8">
+          <FaExclamationTriangle className="text-red-400 text-4xl mb-4" />
+          <p className="text-red-400 text-center mb-4">{error}</p>
+          <button
+            onClick={fetchTransactions}
+            className="bg-invoforge-primary hover:bg-invoforge-secondary text-white px-4 py-2 rounded-lg transition-colors"
+          >
+            Retry
+          </button>
         </div>
       </Card>
     );
