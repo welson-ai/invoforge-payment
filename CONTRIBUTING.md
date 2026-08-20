@@ -1,6 +1,6 @@
-# Contributing to Stellar Frontend Starter Template
+# Contributing to Invoforge Payment Dashboard
 
-Thank you for your interest in contributing!
+Thank you for your interest in contributing to Invoforge!
 
 ## How to Contribute
 
